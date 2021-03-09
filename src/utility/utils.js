@@ -1,3 +1,4 @@
+// empty field validator
 export function isEmpty(obj) {
   // console.log(typeof(obj));
   if (obj !== null && obj !== undefined) {

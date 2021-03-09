@@ -18,15 +18,6 @@ let forceRefresh = false;
 const Home = () => {
   const [contactList, setContactList] = useState([]);
 
-  function handleBackButtonClick() {
-    if (forceRefresh) {
-      goToHomeScreen();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
@@ -37,6 +28,18 @@ const Home = () => {
     };
   }, []);
 
+  // back button press handling
+  function handleBackButtonClick() {
+    if (forceRefresh) {
+      goToHomeScreen();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+  // search contacts
   const search = (text) => {
     text = text.trim();
     searchText = text;
@@ -49,6 +52,7 @@ const Home = () => {
     }
   };
 
+    // load contacts
   const loadContacts = () => {
     Contacts.getAll()
       .then((contacts) => {
@@ -58,6 +62,7 @@ const Home = () => {
   };
 
   const onSubmit = () => {
+    // contact permission handling
     if (Platform.OS === 'android') {
       request(PERMISSIONS.ANDROID.READ_CONTACTS).then((result) => {
         if (result === 'denied') {
